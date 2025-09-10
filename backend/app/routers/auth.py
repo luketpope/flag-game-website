@@ -7,6 +7,11 @@ from ..auth import verify_password, hash_password, create_access_token
 
 router = APIRouter()
 
+@router.get("/users")
+def read_users(db: Session = Depends(get_db)):
+    users = db.query(models.User).all()
+    return users
+
 @router.post("/signup", response_model=schemas.UserOut)
 def signup(user: schemas.UserCreate, db: Session = Depends(get_db)):
     # Check if email already exists

@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import auth
+from app.routers import auth, game
 from app.database import Base, engine
 from . import models, schemas
 
@@ -29,6 +29,7 @@ app.add_middleware(
 Base.metadata.create_all(bind=engine)
 
 app.include_router(auth.router, prefix="/auth")
+app.include_router(game.router, prefix="/game")
 
 @app.get("/daily", response_model=schemas.FlagOut)
 def get_daily_challenge(db: Session = Depends(get_db)):

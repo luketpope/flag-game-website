@@ -14,6 +14,7 @@ export default function SignupForm() {
     try {
       await signup(email, password);
       setSuccess("Account created! You can now log in.");
+      window.location.href = "/login";
     } catch (err) {
       setError(err.message);
     }
